@@ -1,0 +1,445 @@
+## Project background
+
+Here, I aim to calculate the frequency of diploid males and diploid male producing colonies in a UK Tree Bumblebee (Bombus hypnorum) population via microsatellite genotyping across 14 variable microsatellite markers.
+
+Samples are either male pupae, taken from field-collected colonies collected across Suffolk and Norfolk during 2017 and 2018 (n = 20), or adult males, sampled in chronological order of eclosion (i.e. male 1 represents the first eclosing male, male 2 the second eclosing male and so on and so forth) from colonies reared from field-collected queens collected from Surrey and Norfolk during 2018 (n = 28).
+
+The reared colonies were further divided into first-brood male-producing colonies (where males eclosed within the one week of first worker eclosion, indicative of diploid male production, n = 12) or late male-producing colonies (where males eclosed more than one week after first worker eclosion, n = 16).
+
+Diploid males should be identifiable due to their appearing heterozygous at microsatellite loci.
+
+## Is diploid male scoring consistent across genotyping rounds?
+
+Any individuals that were heterozygous on the first round of genotyping were regenotyped to ensure diploidy wasn't called based on contamination. It's important to check that there was consistent calling of male diploidy across both genotyping rounds, i.e. were males that were called as diploid in the first round of genotyping also called as diploid during the second round of genotyping?
+
+Load packages.
+
+```{r load packages, include = FALSE}
+library(dplyr)
+library(ggplot2)
+library(genepop)
+library(tibble)
+library(tidyr)
+library(magrittr)
+library(ape)
+library(adegenet)
+library(pegas)
+library(hablar)
+```
+
+Load data.
+
+```{r load raw genotyping matrix, include = FALSE}
+rawmaletypes <- read.delim("Raw_male_typing_matrix.txt")
+```
+
+Variables in the dataframe are as follows:
+Type = Whether the colony was field-collected (FC), queen-reared first-brood male producing  (EM), or queen-reared late male producing (LM).
+Round = the genotyping round for each individual, for regenotyping purposes
+Colony = the ID assigned to each colony
+ID = the identity of each typed individual, in the format of colony number then male ID, i.e. 48MP1 is the first male pupa genotyped from colony 48.
+Marker columns = this gives the name of each marker and the allele size at positions 1 & 2. Missing genotypes are indicated by 0s.
+Het_loci = the total number of markers at which males appear heterozygous. Haploid males should have a zero in this column.
+
+For the time being, let's call all males that are heterozygous at two or more loci diploid.
+
+```{r diploid assignment based on two heterozygous loci, include = FALSE}
+#Make new dataframe of males counted as diploid from first round of genotyping
+dm_assignment_round1 <- filter(rawmaletypes, Round == 1, Het_loci >= 2)
+
+#Make new dataframe of males counted as diploid from second round of genotyping
+dm_assignment_round2 <- filter(rawmaletypes, Round == 2, Het_loci >= 2)
+
+#Compare diploid individuals across genotyping rounds
+dm_comparison <- cbind(dm_assignment_round1$ID, dm_assignment_round2$ID)
+rm(dm_assignment_round1, dm_assignment_round2)
+```
+
+The second round of genotyping returns three less diploid individuals than the first. These are 49MP4, 56MP5 and 135M1.
+
+```{r double checking ploidy of 49MP4, 56MP5 and 135M1, include = FALSE}
+#Generate genotyping frame of the three males, arranged by ID
+ploidydoublechecks <- filter(rawmaletypes, ID == "49MP4" | ID == "56MP5" | ID == "135M1") %>% arrange(ID)
+```
+
+Looking at the data, it seems that 56MP5 and 131M5 were called as diploid on the first run due to contamination, since they are both heterozygous at zero loci in the second and third genotyping runs. These two individuals can be called as haploid.
+
+As for 49MP4, it is classified as diploid from the first round of genotyping since it is heterozygous at the BL03 & BTMS0083 markers. However, it is classified as haploid during the second round since the reaction fails to amplify at the BTMS0083 marker, leaving 49MP4 heterozygous at only one locus (BL03). Therefore, it is safe to score 49MP4 as a diploid male.
+
+Besides these three males, all individuals are consistently called as either haploid or diploid across both rounds of genotyping, which means I can be confident that ploidy has been correctly assigned to all individuals. In total then, there are 50 diploid males across 6 colonies (49, 83, 102, 133, 138 and 159).
+
+## Diploid male production
+
+For this analysis, I will use the consensus genotypes for males, generated from regenotyping of all colonies that either produced potential diploid males during the first round of genotyping (colonies 49, 56 and 83), plus all colonies that were first-brood male producers.
+
+Load consensus genotypes.
+
+```{r load consensus genotyping matrix, include = FALSE}
+finalmaletypes <- read.delim("Consensus_male_genotypes.txt")
+```
+
+Check for diploid males in the dataset (defined as those males heterozygous at two or more loci). This should be the same number as found above (50 males in six colonies).
+
+```{r diploid male check, include = FALSE}
+finaldiploidmales <- filter(finalmaletypes, Het_loci >= 2)
+```
+
+Findings are the same as those found above. Continue with analysis.
+
+Does the number of diploid males change, depending on how many heterozygous loci are needed to classify them as diploid? 
+
+Create new columns, 'Ploidy1', 'Ploidy2' and 'Ploidy3', where males are assigned as diploid according to whether they are heterozygous at one loci, two loci or three loci, respectively.
+
+```{r diploid male scoring, include = FALSE}
+finalmaletypes <- mutate(finalmaletypes, Ploidy1 = ifelse(Het_loci >= 1, "D", "H"))
+finalmaletypes <- mutate(finalmaletypes, Ploidy2 = ifelse(Het_loci >= 2, "D", "H"))
+finalmaletypes <- mutate(finalmaletypes, Ploidy3 = ifelse(Het_loci >= 3, "D", "H"))
+```
+
+Is there a difference between the number of diploid males depending on the three methods of scoring?
+
+```{r diploid male scoring differences, include = FALSE}
+#Make new column of males counted as diploid if heterozygous at one or more loci
+het1 <- filter(finalmaletypes, Ploidy1 == "D")
+#Make new column of males counted as diploid if heterozygous at two or more loci
+het2 <- filter(finalmaletypes, Ploidy2 == "D")
+#Make new column of males counted as diploid if heterozygous at three or more loci
+het3 <- filter(finalmaletypes, Ploidy3 == "D")
+```
+
+There is no difference between the number of diploid males and diploid male producing colonies when diploidy is based on heterozygosity at one or more or two or more heterozygous loci (50 diploid males across 6 colonies).
+
+However, when diploidy is defined by heterozygosity at three or more loci, one male is no longer diploid. Which male is this?
+
+```{r identity of male scored differently between different scoring methods, include = FALSE}
+filter(finalmaletypes, Ploidy2 == "D", Ploidy3 == "H")
+```
+
+Male 49MP4 is only heterozygous at two loci. It is therefore classified as diploid under the first two parameters (1 or more or 2 or more heterozygous loci) but haploid under the third parameter (3 or more heterozygous loci). Since this only changes the number of diploid males by (50 vs 49), and doesn't impact the number of diploid male producing colonies (6 vs 6), I will stick with using 2 heterozygous loci to define males as diploid.
+
+The following males are therefore diploid
+
+Colony 49 (FC): MP2, MP4, MP5, MP6, MP8, MP9, MP10, MP12, MP14, MP15, MP16, MP17, MP18, MP20, MP21, MP22, MP23; n = 17
+Colony 83 (LM): 83M3, 83M5, 83M6, 83M11; n = 4
+Colony 102 (EM): 102M1; n = 1
+Colony 133 (EM): 133M1, 133M2, 133M3, 133M4, 133M5, n = 5
+Colony 138 (EM): 138M1, 138M2, 138M3, 138M4, 138M5, 138M6, 138M7, 138M9, 138M10, 138M12, 138M14, 138M18, 138M20, 138M21; n = 14
+Colony 159 (EM): 159M1, 159M2, 159M3, 159M4, 159M6, 159M7, 159M11, 159M12, 159M13; n = 9
+
+Plot the number of diploid males by colony type.
+
+```{r diploid male plot, include = FALSE}
+#plot stacked bar chart of haploid vs diploid males in each colony, and grid graphs by colony type
+ggplot(finalmaletypes, aes(x = Colony)) +
+  geom_bar(aes(colour = Ploidy2)) +
+  facet_wrap(vars(Type))
+```
+
+This doesn't quite give me what I want, since the Colony column values are treated as integers, and so the x axis is treated as continuous. Convert colony number to character and plot again.
+
+```{r convert colony numbers and plot diploid male graph, include = FALSE}
+#convert Colony to character
+finalmaletypes <- finalmaletypes %>% convert(chr(Colony))
+
+#plot diploid male bar chart
+
+ggplot(finalmaletypes, aes(x = Colony)) +
+  geom_bar(aes(colour = Ploidy2)) +
+  facet_wrap(vars(Type))
+```
+
+This isn't very pretty, plot and edit using Excel and Illustrator for plot in manuscript.
+
+Summarise the number of loci diploid males are heterozygous at.
+
+```{r diploid male heterozygosity, include = FALSE}
+Het_loci_summ <- summarize(het2, mean(Het_loci), sd(Het_loci), var(Het_loci), quantile(Het_loci))
+view(Het_loci_summ)
+```
+
+## Population genetic measures
+
+General population genetic measures such as allelic richness and allele frequencies can be figured out using adegenet.
+
+```{r adegenet conversion of genotype matrix, include = FALSE}
+#remove unneccessary columns
+pegas_males <- finalmaletypes
+pegas_males$Type <- NULL
+pegas_males$Colony <- NULL
+pegas_males$Het_loci <- NULL
+pegas_males$Ploidy1 <- NULL
+pegas_males$Ploidy2 <- NULL
+pegas_males$Ploidy3 <- NULL
+
+#treat all individuals as belonging to the same population
+Population <- c(rep("UK", 612))
+pegas_males <- data.frame(pegas_males, Population)
+rm(Population)
+
+#convert to pegas format
+pegas_males <- alleles2loci(pegas_males, ploidy = 2, rownames = 1, population = 30)
+
+#convert to adegenet format
+adegenet_males <- loci2genind(pegas_males, ploidy = 2, na.alleles = "0")
+```
+
+Check the number of alleles at each locus for the male data.
+
+```{r number of alleles, include = FALSE}
+nmalealleles <- adegenet_males$loc.n.all
+nmalealleles
+```
+
+BTMS0132 appears to be monomorphic, with only one allele found across all sampled males. Remove from dataset and rerun.
+
+```{r drop monomorphic BTMS0132 marker, include = FALSE}
+#remove unneccessary columns
+pegas_males <- finalmaletypes
+pegas_males$Type <- NULL
+pegas_males$Colony <- NULL
+pegas_males$Het_loci <- NULL
+pegas_males$Ploidy1 <- NULL
+pegas_males$Ploidy2 <- NULL
+pegas_males$Ploidy3 <- NULL
+
+#treat all individuals as belonging to the same population
+Population <- c(rep("UK", 612))
+pegas_males <- data.frame(pegas_males, Population)
+rm(Population)
+
+#drop BTMS0132
+pegas_males$BTMS0132_1 <- NULL
+pegas_males$BTMS0132_2 <- NULL
+
+#convert to pegas format
+pegas_males <- alleles2loci(pegas_males, ploidy = 2, rownames = 1, population = 28)
+
+#convert to adegenet format
+adegenet_males <- loci2genind(pegas_males, ploidy = 2, na.alleles = "0")
+```
+
+Recheck the number of alleles at each locus for the male data.
+
+```{r number of alleles recheck, include = FALSE}
+nmalealleles <- adegenet_males$loc.n.all
+nmalealleles
+```
+
+Use Cervus gui to work out allele frequencies for each marker.
+
+```{r cervus conversion of genotype matrix}
+maletypes_cervus <- finalmaletypes 
+
+#Remove 'Type', 'Colony', 'BTMS0132' marker, 'Het_loci', 'Ploidy1', 'Ploidy2' and 'Ploidy3' columns 
+maletypes_cervus$Type <- NULL
+maletypes_cervus$Colony <- NULL
+maletypes_cervus$Het_loci <- NULL
+maletypes_cervus$Ploidy1 <- NULL
+maletypes_cervus$Ploidy2 <- NULL
+maletypes_cervus$Ploidy3 <- NULL
+maletypes_cervus$BTMS0132_1 <- NULL
+maletypes_cervus$BTMS0132_2 <- NULL
+
+#Export to table format
+write.table(maletypes_cervus, file = "maletypes_cervus.txt", sep = "\t", row.names = FALSE, quote = FALSE)
+```
+
+Results:
+
+Locus       k    N        
+B131_         5      591
+BL03_         6      592
+BT26_         6      583
+BTMS0125_     8      551
+B11_          5      605
+B10_          6      604
+BTMS0057_     5      596
+BT05_         4      600
+BTMS0056_     3      601
+B121_         5      469
+BTERN02_      7      598
+BTMS0083_     6      542
+BL08_         3      553
+Allelic richness = 5.308
+
+**** Locus B131_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   118      126        0       63  0.1066
+   120      879        9      435  0.7437
+   121       10        0        5  0.0085
+   127      145        9       68  0.1227
+   130       22        0       11  0.0186
+   
+**** Locus BL03_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   144      421       25      198  0.3556
+   146       39       17       11  0.0329
+   147        2        0        1  0.0017
+   148       26        0       13  0.0220
+   150      684       24      330  0.5777
+   151       12        0        6  0.0101
+
+**** Locus BT26_ ****
+
+Allele  Count    Hets     Homs     Freq  
+    97       58        0       29  0.0497
+    98        6        0        3  0.0051
+   101      717       21      348  0.6149
+   103      170        4       83  0.1458
+   105       22        0       11  0.0189
+   110      193       17       88  0.1655
+
+**** Locus BTMS0125_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   110      125        5       60  0.1134
+   113      202        6       98  0.1833
+   125      482       26      228  0.4374
+   132        2        0        1  0.0018
+   137       69       17       26  0.0626
+   144      196       22       87  0.1779
+   148       16        0        8  0.0145
+   149       10        0        5  0.0091
+
+**** Locus B11_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   156        4        0        2  0.0033
+   158      315        5      155  0.2603
+   159        8        0        4  0.0066
+   162      667        7      330  0.5512
+   164      216        2      107  0.1785
+
+**** Locus B10_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   191      709       21      344  0.5869
+   192       57        7       25  0.0472
+   193      107        5       51  0.0886
+   194       78       14       32  0.0646
+   199        4        0        2  0.0033
+   200      253       13      120  0.2094
+
+**** Locus BTMS0057_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   104      109        3       53  0.0914
+   107      223       15      104  0.1871
+   109      521       19      251  0.4371
+   111       48        0       24  0.0403
+   113      291        9      141  0.2441
+
+**** Locus BT05_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   153       10        0        5  0.0083
+   156      698        4      347  0.5817
+   158      137        9       64  0.1142
+   162      355        9      173  0.2958
+
+**** Locus BTMS0056_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   254       48        0       24  0.0399
+   256     1110        0      555  0.9235
+   257       44        0       22  0.0366
+
+**** Locus B121_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   153      173        5       84  0.1844
+   159       32        0       16  0.0341
+   168      251        9      121  0.2676
+   170      427       15      206  0.4552
+   208       55        3       26  0.0586
+
+**** Locus BTERN02_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   157       42        4       19  0.0351
+   161        2        0        1  0.0017
+   163      386       26      180  0.3227
+   165      427       31      198  0.3570
+   167       69        1       34  0.0577
+   175       10        0        5  0.0084
+   179      260       10      125  0.2174
+
+**** Locus BTMS0083_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   277      302       12      145  0.2786
+   279       12        0        6  0.0111
+   294       96        0       48  0.0886
+   302      248       18      115  0.2288
+   304       22       12        5  0.0203
+   306      404       28      188  0.3727
+
+**** Locus BL08_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   145     1031       15      508  0.9322
+   146        2        0        1  0.0018
+   149       73       15       29  0.0660
+
+Produce summary statistics for allelic richness.
+
+```{r summary statistics of allelic richness, include = FALSE}
+#Make dataframe
+Locus <- c("B131", "BL03", "BT26", "BTMS0125", "B11", "B10", "BTMS0057", "BT05", "BTMS0056", "B121", "BTERN02", "BTMS0083", "BL08")
+Allele_num <- c(5, 6, 6, 8, 5, 6, 5, 4, 3, 5, 7, 6, 3)
+Allelic_richness <- data.frame(Locus, Allele_num)
+rm(Locus)
+rm(Allele_num)
+
+#Summarise
+All_rich_summ <- summarize(Allelic_richness, mean(Allele_num), sd(Allele_num), var(Allele_num), quantile(Allele_num))
+view(All_rich_summ)
+```
+
+
+## How many loci were successfully typed across my samples?
+
+The number of loci that each sample was successfully typed at can be worked out by producing a new column where the number of unsuccessful types at a loci (i.e. 0s) are subtracted from the total number of loci typed (13).
+
+```{r successful genotyping, include = FALSE}
+#Make new matrix without the monomorphic BTMS0132
+typing_success_rate <- finalmaletypes
+typing_success_rate$BTMS0132_1 <- NULL
+typing_success_rate$BTMS0132_2 <- NULL
+
+#Since we're only worried about unsuccessful genotypes, we can remove the second allele at each loci
+typing_success_rate$B131_2 <- NULL
+typing_success_rate$BL03_2 <- NULL
+typing_success_rate$BT26_2 <- NULL
+typing_success_rate$BTMS0125_2 <- NULL
+typing_success_rate$B11_2 <- NULL
+typing_success_rate$B10_2 <- NULL
+typing_success_rate$BTMS0057_2 <- NULL
+typing_success_rate$BT05_2 <- NULL
+typing_success_rate$BTMS0056_2 <- NULL
+typing_success_rate$B121_2 <- NULL
+typing_success_rate$BTERN02_2 <- NULL
+typing_success_rate$BTMS0083_2 <- NULL
+typing_success_rate$BL08_2 <- NULL
+
+#Plus remove other things that are unimportant here
+typing_success_rate$Type <- NULL
+typing_success_rate$Colony <- NULL
+typing_success_rate$Het_loci <- NULL
+typing_success_rate$Ploidy1 <- NULL
+typing_success_rate$Ploidy2 <- NULL
+typing_success_rate$Ploidy3 <- NULL
+
+#Make new column for unsuccessful typing by summing occurrences of 0 values for each row
+typing_success_rate$Type_Unsucc <- apply(typing_success_rate[2:14], 1, function(x) length(which(x==0)))
+
+#Subtract this value from 13 to give number of successfully typed loci for each male
+typing_success_rate <-  mutate(typing_success_rate, Type_Succ = 13 - Type_Unsucc)
+
+#Summarise the number of successfully typed loci across all males
+Type_Succ <- summarize(typing_success_rate, mean(Type_Succ), sd(Type_Succ), var(Type_Succ), quantile(Type_Succ))
+view(Type_Succ)
+```
+

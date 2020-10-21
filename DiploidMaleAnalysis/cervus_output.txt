@@ -1,0 +1,369 @@
+Cervus 3.0.7 - (c) Copyright Tristan Marshall 1998-2014
+Distributed by Field Genetics Ltd - www.fieldgenetics.com
+Licensed for non-commercial use only
+
+Allele frequency analysis completed 16/09/2020 13:47:32
+
+
+**** Summary statistics ****
+
+
+Locus       k    N        HObs   HExp   PIC    NE-1P  NE-2P  NE-PP  NE-I   NE-SI
+B131_         5      591  0.015  0.421  0.390  0.908  0.767  0.617  0.366  0.631
+BL03_         6      592  0.056  0.539  0.452  0.852  0.738  0.603  0.299  0.556
+BT26_         6      583  0.036  0.571  0.530  0.821  0.654  0.473  0.225  0.521
+BTMS0125_     8      551  0.069  0.727  0.690  0.673  0.491  0.299  0.111  0.415
+B11_          5      605  0.012  0.597  0.532  0.819  0.672  0.516  0.228  0.509
+B10_          6      604  0.050  0.598  0.556  0.798  0.629  0.443  0.203  0.502
+BTMS0057_     5      596  0.039  0.705  0.658  0.710  0.536  0.352  0.133  0.431
+BT05_         4      600  0.018  0.562  0.491  0.841  0.706  0.558  0.263  0.535
+BTMS0056_     3      601  0.000  0.144  0.139  0.990  0.927  0.863  0.737  0.862
+B121_         5      469  0.034  0.683  0.631  0.736  0.567  0.388  0.152  0.447
+BTERN02_      7      598  0.060  0.717  0.665  0.703  0.533  0.355  0.131  0.425
+BTMS0083_     6      542  0.065  0.723  0.674  0.695  0.523  0.345  0.126  0.420
+BL08_         3      553  0.027  0.127  0.119  0.992  0.940  0.891  0.770  0.879
+
+Number of individuals:                                       612
+Number of loci:                                               13
+Mean number of alleles per locus:                              5.308
+Mean proportion of loci typed:                                 0.9408
+Mean expected heterozygosity:                                  0.5472
+Mean polymorphic information content (PIC):                    0.5022
+Combined non-exclusion probability (first parent):             0.05886342
+Combined non-exclusion probability (second parent):            0.00400508
+Combined non-exclusion probability (parent pair):              0.00008632
+Combined non-exclusion probability (identity):                 6.349E-0009
+Combined non-exclusion probability (sib identity):             0.00026995
+
+
+**** Files ****
+
+Input
+  Genotype data file:             maletypes_cervus.txt
+
+Output
+  Summary text file:              cervus_output.txt
+  Allele frequency file:          cervus_output.alf
+
+
+**** Loci ****
+
+       1  B131_
+       2  BL03_
+       3  BT26_
+       4  BTMS0125_
+       5  B11_
+       6  B10_
+       7  BTMS0057_
+       8  BT05_
+       9  BTMS0056_
+      10  B121_
+      11  BTERN02_
+      12  BTMS0083_
+      13  BL08_
+
+
+**** Locus B131_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   118      126        0       63  0.1066
+   120      879        9      435  0.7437
+   121       10        0        5  0.0085
+   127      145        9       68  0.1227
+   130       22        0       11  0.0186
+
+Number of individuals typed:                                 591
+  Heterozygotes:                                               9
+  Homozygotes:                                               582
+Number of alleles:                                             5
+Observed heterozygosity:                                       0.0152
+Expected heterozygosity:                                       0.4205
+Polymorphic information content (PIC):                         0.3901
+Average non-exclusion probability (first parent):              0.9082
+Average non-exclusion probability (second parent):             0.7672
+Average non-exclusion probability (parent pair):               0.6171
+Average non-exclusion probability (identity):                  0.3663
+Average non-exclusion probability (sib identity):              0.6315
+
+
+**** Locus BL03_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   144      421       25      198  0.3556
+   146       39       17       11  0.0329
+   147        2        0        1  0.0017
+   148       26        0       13  0.0220
+   150      684       24      330  0.5777
+   151       12        0        6  0.0101
+
+Number of individuals typed:                                 592
+  Heterozygotes:                                              33
+  Homozygotes:                                               559
+Number of alleles:                                             6
+Observed heterozygosity:                                       0.0557
+Expected heterozygosity:                                       0.5386
+Polymorphic information content (PIC):                         0.4522
+Average non-exclusion probability (first parent):              0.8517
+Average non-exclusion probability (second parent):             0.7384
+Average non-exclusion probability (parent pair):               0.6029
+Average non-exclusion probability (identity):                  0.2992
+Average non-exclusion probability (sib identity):              0.5557
+
+
+**** Locus BT26_ ****
+
+Allele  Count    Hets     Homs     Freq  
+    97       58        0       29  0.0497
+    98        6        0        3  0.0051
+   101      717       21      348  0.6149
+   103      170        4       83  0.1458
+   105       22        0       11  0.0189
+   110      193       17       88  0.1655
+
+Number of individuals typed:                                 583
+  Heterozygotes:                                              21
+  Homozygotes:                                               562
+Number of alleles:                                             6
+Observed heterozygosity:                                       0.0360
+Expected heterozygosity:                                       0.5708
+Polymorphic information content (PIC):                         0.5300
+Average non-exclusion probability (first parent):              0.8208
+Average non-exclusion probability (second parent):             0.6544
+Average non-exclusion probability (parent pair):               0.4733
+Average non-exclusion probability (identity):                  0.2250
+Average non-exclusion probability (sib identity):              0.5211
+
+
+**** Locus BTMS0125_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   110      125        5       60  0.1134
+   113      202        6       98  0.1833
+   125      482       26      228  0.4374
+   132        2        0        1  0.0018
+   137       69       17       26  0.0626
+   144      196       22       87  0.1779
+   148       16        0        8  0.0145
+   149       10        0        5  0.0091
+
+Number of individuals typed:                                 551
+  Heterozygotes:                                              38
+  Homozygotes:                                               513
+Number of alleles:                                             8
+Observed heterozygosity:                                       0.0690
+Expected heterozygosity:                                       0.7270
+Polymorphic information content (PIC):                         0.6904
+Average non-exclusion probability (first parent):              0.6728
+Average non-exclusion probability (second parent):             0.4915
+Average non-exclusion probability (parent pair):               0.2986
+Average non-exclusion probability (identity):                  0.1108
+Average non-exclusion probability (sib identity):              0.4145
+
+
+**** Locus B11_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   156        4        0        2  0.0033
+   158      315        5      155  0.2603
+   159        8        0        4  0.0066
+   162      667        7      330  0.5512
+   164      216        2      107  0.1785
+
+Number of individuals typed:                                 605
+  Heterozygotes:                                               7
+  Homozygotes:                                               598
+Number of alleles:                                             5
+Observed heterozygosity:                                       0.0116
+Expected heterozygosity:                                       0.5969
+Polymorphic information content (PIC):                         0.5315
+Average non-exclusion probability (first parent):              0.8190
+Average non-exclusion probability (second parent):             0.6719
+Average non-exclusion probability (parent pair):               0.5165
+Average non-exclusion probability (identity):                  0.2278
+Average non-exclusion probability (sib identity):              0.5087
+
+
+**** Locus B10_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   191      709       21      344  0.5869
+   192       57        7       25  0.0472
+   193      107        5       51  0.0886
+   194       78       14       32  0.0646
+   199        4        0        2  0.0033
+   200      253       13      120  0.2094
+
+Number of individuals typed:                                 604
+  Heterozygotes:                                              30
+  Homozygotes:                                               574
+Number of alleles:                                             6
+Observed heterozygosity:                                       0.0497
+Expected heterozygosity:                                       0.5979
+Polymorphic information content (PIC):                         0.5560
+Average non-exclusion probability (first parent):              0.7985
+Average non-exclusion probability (second parent):             0.6292
+Average non-exclusion probability (parent pair):               0.4426
+Average non-exclusion probability (identity):                  0.2035
+Average non-exclusion probability (sib identity):              0.5022
+
+
+**** Locus BTMS0057_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   104      109        3       53  0.0914
+   107      223       15      104  0.1871
+   109      521       19      251  0.4371
+   111       48        0       24  0.0403
+   113      291        9      141  0.2441
+
+Number of individuals typed:                                 596
+  Heterozygotes:                                              23
+  Homozygotes:                                               573
+Number of alleles:                                             5
+Observed heterozygosity:                                       0.0386
+Expected heterozygosity:                                       0.7050
+Polymorphic information content (PIC):                         0.6583
+Average non-exclusion probability (first parent):              0.7100
+Average non-exclusion probability (second parent):             0.5356
+Average non-exclusion probability (parent pair):               0.3521
+Average non-exclusion probability (identity):                  0.1334
+Average non-exclusion probability (sib identity):              0.4312
+
+
+**** Locus BT05_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   153       10        0        5  0.0083
+   156      698        4      347  0.5817
+   158      137        9       64  0.1142
+   162      355        9      173  0.2958
+
+Number of individuals typed:                                 600
+  Heterozygotes:                                              11
+  Homozygotes:                                               589
+Number of alleles:                                             4
+Observed heterozygosity:                                       0.0183
+Expected heterozygosity:                                       0.5615
+Polymorphic information content (PIC):                         0.4907
+Average non-exclusion probability (first parent):              0.8407
+Average non-exclusion probability (second parent):             0.7059
+Average non-exclusion probability (parent pair):               0.5582
+Average non-exclusion probability (identity):                  0.2631
+Average non-exclusion probability (sib identity):              0.5352
+
+
+**** Locus BTMS0056_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   254       48        0       24  0.0399
+   256     1110        0      555  0.9235
+   257       44        0       22  0.0366
+
+Number of individuals typed:                                 601
+  Heterozygotes:                                               0
+  Homozygotes:                                               601
+Number of alleles:                                             3
+Observed heterozygosity:                                       0.0000
+Expected heterozygosity:                                       0.1444
+Polymorphic information content (PIC):                         0.1393
+Average non-exclusion probability (first parent):              0.9896
+Average non-exclusion probability (second parent):             0.9266
+Average non-exclusion probability (parent pair):               0.8633
+Average non-exclusion probability (identity):                  0.7373
+Average non-exclusion probability (sib identity):              0.8622
+
+
+**** Locus B121_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   153      173        5       84  0.1844
+   159       32        0       16  0.0341
+   168      251        9      121  0.2676
+   170      427       15      206  0.4552
+   208       55        3       26  0.0586
+
+Number of individuals typed:                                 469
+  Heterozygotes:                                              16
+  Homozygotes:                                               453
+Number of alleles:                                             5
+Observed heterozygosity:                                       0.0341
+Expected heterozygosity:                                       0.6833
+Polymorphic information content (PIC):                         0.6310
+Average non-exclusion probability (first parent):              0.7359
+Average non-exclusion probability (second parent):             0.5671
+Average non-exclusion probability (parent pair):               0.3881
+Average non-exclusion probability (identity):                  0.1523
+Average non-exclusion probability (sib identity):              0.4468
+
+
+**** Locus BTERN02_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   157       42        4       19  0.0351
+   161        2        0        1  0.0017
+   163      386       26      180  0.3227
+   165      427       31      198  0.3570
+   167       69        1       34  0.0577
+   175       10        0        5  0.0084
+   179      260       10      125  0.2174
+
+Number of individuals typed:                                 598
+  Heterozygotes:                                              36
+  Homozygotes:                                               562
+Number of alleles:                                             7
+Observed heterozygosity:                                       0.0602
+Expected heterozygosity:                                       0.7171
+Polymorphic information content (PIC):                         0.6654
+Average non-exclusion probability (first parent):              0.7028
+Average non-exclusion probability (second parent):             0.5326
+Average non-exclusion probability (parent pair):               0.3554
+Average non-exclusion probability (identity):                  0.1314
+Average non-exclusion probability (sib identity):              0.4246
+
+
+**** Locus BTMS0083_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   277      302       12      145  0.2786
+   279       12        0        6  0.0111
+   294       96        0       48  0.0886
+   302      248       18      115  0.2288
+   304       22       12        5  0.0203
+   306      404       28      188  0.3727
+
+Number of individuals typed:                                 542
+  Heterozygotes:                                              35
+  Homozygotes:                                               507
+Number of alleles:                                             6
+Observed heterozygosity:                                       0.0646
+Expected heterozygosity:                                       0.7234
+Polymorphic information content (PIC):                         0.6740
+Average non-exclusion probability (first parent):              0.6953
+Average non-exclusion probability (second parent):             0.5228
+Average non-exclusion probability (parent pair):               0.3446
+Average non-exclusion probability (identity):                  0.1256
+Average non-exclusion probability (sib identity):              0.4200
+
+
+**** Locus BL08_ ****
+
+Allele  Count    Hets     Homs     Freq  
+   145     1031       15      508  0.9322
+   146        2        0        1  0.0018
+   149       73       15       29  0.0660
+
+Number of individuals typed:                                 553
+  Heterozygotes:                                              15
+  Homozygotes:                                               538
+Number of alleles:                                             3
+Observed heterozygosity:                                       0.0271
+Expected heterozygosity:                                       0.1268
+Polymorphic information content (PIC):                         0.1191
+Average non-exclusion probability (first parent):              0.9920
+Average non-exclusion probability (second parent):             0.9401
+Average non-exclusion probability (parent pair):               0.8905
+Average non-exclusion probability (identity):                  0.7703
+Average non-exclusion probability (sib identity):              0.8792
+
+
+********************************************************************************
