@@ -9,6 +9,6 @@ The R markdown script requires the following files from this repository: _Raw_ma
 These files should then be placed in the same folder as the R markdown script (_diploid_male_analysis.rmd_) before the analysis is run, i.e.:
 
     local/DiploidMaleAnalysis/
-    >_diploid_male_analysis.rmd_
-    >_Raw_male_typing_matrix.txt_
-    >_Consensus_male_genotypes.txt_
+    >diploid_male_analysis.rmd
+    >Raw_male_typing_matrix.txt
+    >Consensus_male_genotypes.txt
