@@ -1,19 +1,15 @@
 # Bottleneck analysis
 
-R code and data used to estimate levels of genetic diversity, recent evidence of a bottleneck (using BOTTLENECK), and calculate M-ratios for <i>B. hypnorum</i> plus five other UK <i>Bombus</i> populations (using microsatellite genotyping data from Crowther _et al._, 2019 and Dreier _et al._, 2014).
+R code and data used to estimate levels of genetic diversity, recent evidence of a bottleneck (using BOTTLENECK), and calculate M-ratios for <i>B. hypnorum</i> plus five other UK <i>Bombus</i> populations (using microsatellite genotyping data from Crowther _et al._, 2019 and Dreier _et al._, 2014). This analysis requires R, Cervus (http://www.fieldgenetics.com/pages/home.jsp), and BOTTLENECK software (http://www1.montpellier.inra.fr/CBGP/software/Bottleneck/bottleneck.html).
 
 The master script _initial popgen analysis.R_ requires all files from both the **Dreier et al data** and **data out** folders.
 
 To run the script, the local folder setup should be set up to match this repository, i.e.:
 
     local/BottleneckAnalysis/
-
-which contains the _initial popgen analysis.R_ R script.
-
-Within this folder there should also be a further two folders, containing all relevant files that are available to download from this repository:
-
-    local/BottleneckAnalysis/Dreier et al data
-    local/BottleneckAnalysis/data out
+    >initial popgen analysis.R
+    >Dreier et al data
+    >data out
 
 ## References
 
