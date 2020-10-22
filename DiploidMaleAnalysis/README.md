@@ -1,6 +1,6 @@
 # Diploid male analysis
 
-R code and data used to estimate levels of genetic diversity and diploid male production in a UK _B. hypnorum_ population.
+R code and data used to estimate levels of genetic diversity and diploid male production from males in a UK _B. hypnorum_ population.
 
 This analysis requires the following programs:
 * R (https://www.r-project.org/)
