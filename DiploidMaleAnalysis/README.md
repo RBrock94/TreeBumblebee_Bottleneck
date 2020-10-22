@@ -1,6 +1,10 @@
 # Diploid male analysis
 
-R code and data used to estimate levels of genetic diversity and diploid male production in a UK _B. hypnorum_ population. This analysis requires R and Cervus software (http://www.fieldgenetics.com/pages/home.jsp).
+R code and data used to estimate levels of genetic diversity and diploid male production in a UK _B. hypnorum_ population.
+
+This analysis requires the following programs:
+* R (https://www.r-project.org/)
+* Cervus software (http://www.fieldgenetics.com/pages/home.jsp).
 
 Microsatellite genotyping data for all sampled males is uploaded in both plain text format (for manipulation with R) and in an Excel format. Relevant information for each dataset is provided in Word format (files ending in _README.docx_).
 
