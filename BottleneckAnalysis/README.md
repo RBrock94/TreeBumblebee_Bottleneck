@@ -1,6 +1,12 @@
 # Bottleneck analysis
 
-R code and data used to estimate levels of genetic diversity, recent evidence of a bottleneck (using BOTTLENECK), and calculate M-ratios for <i>B. hypnorum</i> plus five other <i>Bombus</i> species from UK populations (using microsatellite genotyping data from Crowther _et al._, 2019 and Dreier _et al._, 2014). This analysis requires R, Colony (https://www.zsl.org/science/software/colony), Cervus (http://www.fieldgenetics.com/pages/home.jsp), and BOTTLENECK software (http://www1.montpellier.inra.fr/CBGP/software/Bottleneck/bottleneck.html).
+R code and data used to estimate levels of genetic diversity, recent evidence of a bottleneck (using BOTTLENECK), and calculate M-ratios for <i>B. hypnorum</i> plus five other <i>Bombus</i> species from UK populations (using microsatellite genotyping data from Crowther _et al._, 2019 and Dreier _et al._, 2014). 
+
+This analysis requires the following programs:
+* R (https://www.r-project.org/)
+* Colony (https://www.zsl.org/science/software/colony)
+* Cervus (http://www.fieldgenetics.com/pages/home.jsp)
+* BOTTLENECK (http://www1.montpellier.inra.fr/CBGP/software/Bottleneck/bottleneck.html).
 
 The master script _initial popgen analysis.R_ requires all files from both the **Dreier et al data** and **data out** folders.
 
