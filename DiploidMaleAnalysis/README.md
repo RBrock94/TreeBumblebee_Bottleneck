@@ -6,7 +6,7 @@ This analysis requires the following programs:
 * R (https://www.r-project.org/)
 * Cervus software (http://www.fieldgenetics.com/pages/home.jsp).
 
-Microsatellite genotyping data for all sampled males is uploaded in both plain text format (for manipulation with R) and in an Excel format. Relevant information for each dataset is provided in Word format (files ending in _README.docx_).
+Microsatellite genotyping data for all sampled males is uploaded in both plain text format (for manipulation with R) and in a _.csv_ format. Relevant information for each dataset is provided in Word format (files ending in _README.docx_).
 
 The R markdown script requires the following files from this repository: _Raw_male_typing_matrix.txt_ and _Consensus_male_genotypes.txt_.
 
