@@ -14,8 +14,8 @@ To run the script, the local folder setup should be set up to match this reposit
 
     local/BottleneckAnalysis/
     >initial popgen analysis.R
-    >Dreier et al data
-    >data out
+    >/Dreier et al data
+    >/data out
 
 ## References
 
