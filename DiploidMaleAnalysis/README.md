@@ -10,7 +10,7 @@ Microsatellite genotyping data for all sampled males is uploaded in both plain t
 
 The R markdown script requires the following files from this repository: _Raw_male_typing_matrix.txt_ and _Consensus_male_genotypes.txt_.
 
-These files should then be placed in the same folder as the R markdown script (_diploid_male_analysis.rmd_) before the analysis is run, i.e.:
+These files should then be placed in the same folder as the R markdown script (_diploid_male_analysis.rmd_) before the R markdown code is run, i.e.:
 
     local/DiploidMaleAnalysis/
     >diploid_male_analysis.rmd
