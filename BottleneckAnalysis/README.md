@@ -2,7 +2,7 @@
 
 R code and data used to estimate levels of genetic diversity, recent evidence of a bottleneck (using BOTTLENECK), and calculate M-ratios for <i>B. hypnorum</i> plus five other <i>Bombus</i> species from UK populations (using microsatellite genotyping data from Crowther _et al._, 2019 and Dreier _et al._, 2014). 
 
-This analysis requires the following programs:
+This analysis requires the following programmes:
 * R (https://www.r-project.org/)
 * Colony (https://www.zsl.org/science/software/colony)
 * Cervus (http://www.fieldgenetics.com/pages/home.jsp)
