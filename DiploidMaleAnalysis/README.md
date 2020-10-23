@@ -2,7 +2,7 @@
 
 R code and data used to estimate levels of genetic diversity and diploid male production from males in a UK _B. hypnorum_ population.
 
-This analysis requires the following programs:
+This analysis requires the following programmes:
 * R (https://www.r-project.org/)
 * Cervus software (http://www.fieldgenetics.com/pages/home.jsp).
 
