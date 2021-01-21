@@ -17,6 +17,7 @@ Load packages.
 ```{r load packages, include = FALSE}
 library(dplyr)
 library(ggplot2)
+library(ggpubr)
 library(genepop)
 library(tibble)
 library(tidyr)
@@ -74,8 +75,12 @@ For this analysis, I will use the consensus genotypes for males, generated from 
 
 Load consensus genotypes.
 
-```{r load consensus genotyping matrix, include = FALSE}
-finalmaletypes <- read.delim("Consensus_male_genotypes.txt")
+```{r load and tidy consensus genotyping matrix, include = FALSE}
+finalmaletypes <- read.table("Consensus_male_genotypes.txt", header = TRUE, sep = "\t", na.strings = "NA", strip.white = TRUE)
+(str(finalmaletypes))
+#type and colony both need to be factors instead of characters
+finalmaletypes$Colony <- as.factor(finalmaletypes$Colony)
+finalmaletypes$Type <- as.factor(finalmaletypes$Type)
 ```
 
 Check for diploid males in the dataset (defined as those males heterozygous at two or more loci). This should be the same number as found above (50 males in six colonies).
@@ -117,6 +122,11 @@ filter(finalmaletypes, Ploidy2 == "D", Ploidy3 == "H")
 
 Male 49MP4 is only heterozygous at two loci. It is therefore classified as diploid under the first two parameters (1 or more or 2 or more heterozygous loci) but haploid under the third parameter (3 or more heterozygous loci). Since this only changes the number of diploid males by (50 vs 49), and doesn't impact the number of diploid male producing colonies (6 vs 6), I will stick with using 2 heterozygous loci to define males as diploid.
 
+```{r table of haploid/diploid males, include = FALSE}
+dip_tab <- table(finalmaletypes$Colony, finalmaletypes$Ploidy2)
+(dip_tab)
+```
+
 The following males are therefore diploid
 
 Colony 49 (FC): MP2, MP4, MP5, MP6, MP8, MP9, MP10, MP12, MP14, MP15, MP16, MP17, MP18, MP20, MP21, MP22, MP23; n = 17
@@ -128,27 +138,50 @@ Colony 159 (EM): 159M1, 159M2, 159M3, 159M4, 159M6, 159M7, 159M11, 159M12, 159M1
 
 Plot the number of diploid males by colony type.
 
-```{r diploid male plot, include = FALSE}
-#plot stacked bar chart of haploid vs diploid males in each colony, and grid graphs by colony type
-ggplot(finalmaletypes, aes(x = Colony)) +
-  geom_bar(aes(colour = Ploidy2)) +
-  facet_wrap(vars(Type))
+```{r diploid male plot by colony type, include = FALSE}
+#filter the whole dataset by colony type
+fieldcolonies <- filter(finalmaletypes, Type == "FC")
+earlymales <- filter(finalmaletypes, Type == "EM")
+latemales <- filter(finalmaletypes, Type == "LM")
+#plot stacked bar charts with haploid and diploid males per colony for the different colony types
+theme_set(theme_classic())
+
+fc.bc <- ggplot(fieldcolonies, aes(x = Colony)) +
+geom_bar(aes(fill = Ploidy2), width = 0.9) +
+labs(y = "Male pupae (N)", title = "Field-collected colonies", tag = "(a)") + scale_fill_discrete(name = "Ploidy", labels = c("Diploid", "Haploid"))
+
+em.bc <- ggplot(earlymales, aes(x = Colony)) +
+geom_bar(aes(fill = Ploidy2), width = 0.9) +
+labs(y = "Adult males (N)", title = "First-brood male producing colonies", tag = "(b)") + scale_fill_discrete(name = "Ploidy", labels = c("Diploid", "Haploid"))
+
+lm.bc <- ggplot(latemales, aes(x = Colony)) +
+geom_bar(aes(fill = Ploidy2), width = 0.9) +
+labs(y = "Adult males (N)", title = "Late male producing colonies", tag = "(c)") + scale_fill_discrete(name = "Ploidy", labels = c("Diploid", "Haploid"))
+
+#panel with ggarrange()
+panel.bc <- ggarrange(fc.bc, em.bc, lm.bc, labels = c("A", "B", "C"), ncol = 1, nrow = 3)
+
+#this looks messy. On original plots, remove legends and tags
+fc.bc2 <- ggplot(fieldcolonies, aes(x = Colony)) +
+geom_bar(aes(fill = Ploidy2), width = 0.5) +
+labs(y = "Male pupae (N)", title = "Field-collected colonies") +
+   theme(legend.position="none")
+
+em.bc2 <- ggplot(earlymales, aes(x = Colony)) +
+geom_bar(aes(fill = Ploidy2), width = 0.5) +
+labs(y = "Adult males (N)", title = "First-brood male producing colonies") +
+   theme(legend.position="none")
+
+lm.bc2 <- ggplot(latemales, aes(x = Colony)) +
+geom_bar(aes(fill = Ploidy2), width = 0.5) +
+labs(y = "Adult males (N)", title = "Late male producing colonies") +
+   theme(legend.position="none")
+
+#panel again
+panel.bc2 <- ggarrange(fc.bc2, em.bc2, lm.bc2, labels = c("A", "B", "C"), ncol = 1, nrow = 3)
+
+#export as .pdfs and customise the plots for publication in Illustrator
 ```
-
-This doesn't quite give me what I want, since the Colony column values are treated as integers, and so the x axis is treated as continuous. Convert colony number to character and plot again.
-
-```{r convert colony numbers and plot diploid male graph, include = FALSE}
-#convert Colony to character
-finalmaletypes <- finalmaletypes %>% convert(chr(Colony))
-
-#plot diploid male bar chart
-
-ggplot(finalmaletypes, aes(x = Colony)) +
-  geom_bar(aes(colour = Ploidy2)) +
-  facet_wrap(vars(Type))
-```
-
-This isn't very pretty, plot and edit using Excel and Illustrator for plot in manuscript.
 
 Summarise the number of loci diploid males are heterozygous at.
 
@@ -442,4 +475,3 @@ typing_success_rate <-  mutate(typing_success_rate, Type_Succ = 13 - Type_Unsucc
 Type_Succ <- summarize(typing_success_rate, mean(Type_Succ), sd(Type_Succ), var(Type_Succ), quantile(Type_Succ))
 view(Type_Succ)
 ```
-
